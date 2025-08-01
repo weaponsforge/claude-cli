@@ -1,0 +1,13 @@
+services:
+  weaponsforge.claude-cli:
+    container_name: weaponsforge-claude-cli
+    image: weaponsforge/claude-cli:latest
+    env_file:
+      - .env
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./projects:/opt/app/projects
+    stdin_open: true
+    tty: true
