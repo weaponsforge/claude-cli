@@ -18,7 +18,7 @@ This repository contains Docker files and recommended configurations for a quick
    - > 💡 **NOTE:** Using a Free-plan Anthropic account works with [Claude AI](https://claude.ai/) for limited usage.
 2. (Optional) Anthropic API Key
    - This key is tied to the **Anthropic account**.
-   - It is an optional method for using Claude Code instead of using the login-generated key.
+   - It is an optional method for using the **Claude Code CLI** instead of using the login-generated key.
    - Generate an Anthropic key at the [Anthropic Console](https://console.anthropic.com/settings/keys)
 2. Docker
    - Windows OS (Docker Desktop): Docker version 27.4.0, build bde2b89
@@ -33,7 +33,7 @@ _(To be updated)_
 1. Clone this repository.
    - `git clone https://github.com/weaponsforge/claude-cli.git`
 
-2. **(Optional) To use an Anthropic API Key:** Create a `.env` file from the `.env.example` file. Replace the value of the `ANTHROPIC_API_KEY` with your own Claude Code API key.
+2. **(Optional) To use an Anthropic API Key:** Create a `.env` file from the `.env.example` file. Replace the value of the `ANTHROPIC_API_KEY` with your own Anthropic API key.
 
    | ID | Description |
    | --- | --- |
@@ -57,13 +57,19 @@ _(To be updated)_
 ## 📖 Usage
 
 1. Run the container.
-   - `docker compose up -d`
+   ```sh
+   docker compose up -d
+   ```
 
 2. Verify the container is running.
-   - `docker ps`
+   ```sh
+   docker ps
+   ```
 
 3. Start the Claude Code CLI from the container's command line.
-   - `docker exec -it weaponsforge-claude-cli claude`
+   ```sh
+   docker exec -it weaponsforge-claude-cli claude
+   ```
 
 4. Initialize the Claude Code CLI.
    - Select a theme (eg., "Dark Mode")
@@ -84,10 +90,12 @@ _(To be updated)_
    - Type `/exit` or press `Ctrl + C`
 
 6. Stop the container.
-   - `docker compose down`
+   ```sh
+   docker compose down
+   ```
 
 7. Verify the container stopped running. The following should yield empty logs.
-   ```
+   ```sh
    docker ps
    docker ps -a
    ```
