@@ -1,4 +1,4 @@
-.env
+.env.*
 **/node_modules/
 
 # Exclude all contents within projects folder recursively
@@ -7,3 +7,4 @@ projects/*
 # Keep the projects folder itself and its README.md
 !projects/
 !projects/README.md
+!projects/hello

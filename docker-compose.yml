@@ -2,12 +2,14 @@ services:
   weaponsforge.claude-cli:
     container_name: weaponsforge-claude-cli
     image: weaponsforge/claude-cli:latest
-    env_file:
-      - .env
+    # Uncomment the following line to use an environment file for configuration
+    # env_file:
+    #  - .env.local
     build:
       context: .
       dockerfile: Dockerfile
     volumes:
-      - ./projects:/opt/app/projects
+      - ./projects/hello:/opt/app/  # Replace "hello" with your project folder name
+      - /opt/app/node_modules
     stdin_open: true
     tty: true

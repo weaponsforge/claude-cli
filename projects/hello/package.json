@@ -1,0 +1,12 @@
+{
+  "name": "hello-script",
+  "version": "1.0.0",
+  "description": "Random sample script",
+  "license": "MIT",
+  "author": "",
+  "type": "module",
+  "main": "main.js",
+  "scripts": {
+    "start": "node main.js"
+  }
+}
