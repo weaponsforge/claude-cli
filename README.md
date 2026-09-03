@@ -100,7 +100,7 @@ This repository deploys the "latest" Docker image to Docker Hub on the creation 
 docker compose up -d
 ```
 
-#### s2. Verify the container is running
+#### 2. Verify the container is running
 
 ```sh
 docker ps
@@ -131,7 +131,7 @@ docker exec -it weaponsforge-claude-cli claude
 - Type messages or prompts in the Claude Code CLI's input message area.
 - Use the `projects/` folder to reference codes or repositories within the Claude Code CLI (mounted as Docker volumes) eg., `@projects/my-app`
 
-#### s5. Exit the Claude Code CLI.
+#### 5. Exit the Claude Code CLI.
 
 - Type `/exit` or press `Ctrl + C`
 
