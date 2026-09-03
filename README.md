@@ -53,7 +53,7 @@ git clone https://github.com/weaponsforge/claude-cli.git
      - .env.local
    ```
 
-> 💡 **INFO:** Use this key when you don't want to authenticate via browser login in the CLI.
+> 💡 **INFO:** Use this option when you don't want to authenticate via browser login in the CLI.
 
 #### 3. (Optional) Organize code repositories under `"/projects"`
 
@@ -61,7 +61,7 @@ Put code repositories or directories for Claude Code CLI inspection under the `"
 
 - See  the [projects/README.md](projects/README.md) file for more details on organizing your project repositories.
 - **INFO:** this step is optional since the Claude Code CLI does not require code repositories to answer general prompts.
-- To set Claude Code to inspect and reference a certain project directory:
+- To set Claude Code to inspect and reference a certain project directory upon start up:
    - Open `docker-compose.yml`
    - Replace `"hello"` in `line #9` with your project directory name under `"/projects"`
    - eg., change from
@@ -94,54 +94,67 @@ This repository deploys the "latest" Docker image to Docker Hub on the creation 
 
 ## 📖 Usage
 
-1. Run the container.
-   ```sh
-   docker compose up -d
-   ```
+#### 1. Run the container
 
-2. Verify the container is running.
-   ```sh
-   docker ps
-   ```
+```sh
+docker compose up -d
+```
 
-3. Start the Claude Code CLI from the container's command line.
-   ```sh
-   docker exec -it weaponsforge-claude-cli claude
-   ```
+#### s2. Verify the container is running
 
-4. Initialize the Claude Code CLI.
-   - Select a theme (eg., "Dark Mode")
-   - Select a login method
-      - ✅ **Recommended**: Select **"1. Claude account with subscription · Pro, Max, Team, or Enterprise"** to launch authorization via web browser
-         - Open the resulting URL in a web browser.
-         - Authorize Claude Code to connect with your Anthropic organization when prompted
-         - Copy the resulting code back to the Claude CLI
-      - 🔄 **Alternative**: Select **"Anthropic Console account · API usage billing"** if not subscribed to Pro or Max subscription
-         - > 🔔 **NOTE**: Ensure your Anthropic account has at least $5 credits.
-         - When prompted with: "Detected a custom API key in your environment", "Do you want to use this API key?"
-         - Choose between `Yes` or `No`.
-   - Read and continue with the proceeding initialization prompts
+```sh
+docker ps
+```
 
-4. Use the Claude Code CLI.
-   - Type messages or prompts in the Claude Code CLI's input message area.
-   - Use the `projects/` folder to reference codes or repositories within the Claude Code CLI (mounted as Docker volumes) eg., `@projects/my-app`
+#### 3. Start the Claude Code CLI from the container's command line
 
-5. Exit the Claude Code CLI.
-   - Type `/exit` or press `Ctrl + C`
+```sh
+docker exec -it weaponsforge-claude-cli claude
+```
 
-6. Stop the container.
-   ```sh
-   docker compose down
-   ```
+#### 4. Initialize the Claude Code CLI.
 
-7. Verify the container stopped running. The following should yield empty logs.
-   ```sh
-   docker ps
-   docker ps -a
-   ```
+- Select a theme (eg., "Dark Mode")
+- Select a login method
+   - ✅ **Recommended**: Select **"1. Claude account with subscription · Pro, Max, Team, or Enterprise"** to launch authorization via web browser
+      - Open the resulting URL in a web browser.
+      - Authorize Claude Code to connect with your Anthropic organization when prompted
+      - Copy the resulting code back to the Claude CLI
+   - 🔄 **Alternative**: Select **"Anthropic Console account · API usage billing"** if not subscribed to Pro or Max subscription
+      - > 🔔 **NOTE**: Ensure your Anthropic account has at least $5 credits.
+      - When prompted with: "Detected a custom API key in your environment", "Do you want to use this API key?"
+      - Choose between `Yes` or `No`.
+- Read and continue with the proceeding initialization prompts
 
-8. Cleanup: delete unused volumes.
-   - `docker volume prune`
+#### 4. Use the Claude Code CLI.
+
+- Type messages or prompts in the Claude Code CLI's input message area.
+- Use the `projects/` folder to reference codes or repositories within the Claude Code CLI (mounted as Docker volumes) eg., `@projects/my-app`
+
+#### s5. Exit the Claude Code CLI.
+
+- Type `/exit` or press `Ctrl + C`
+
+#### 6. Stop the container.
+
+```sh
+docker compose down
+```
+
+#### 7. Verify the container stopped running.
+
+The following should yield empty logs.
+
+```sh
+docker ps
+docker ps -a
+```
+
+#### 8. Cleanup: delete unused volumes.
+
+```sh
+docker volume prune
+```
 
 ## 📝 References
 
