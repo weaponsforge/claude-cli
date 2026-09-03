@@ -7,3 +7,4 @@ projects/*
 # Keep the projects folder itself and its README.md
 !projects/
 !projects/README.md
+!projects/hello
