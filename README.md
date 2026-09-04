@@ -130,8 +130,8 @@ docker exec -it weaponsforge-claude-cli claude
       - Open the resulting URL in a web browser.
       - Authorize Claude Code to connect with your Anthropic organization when prompted
       - Copy the resulting code back to the Claude CLI
-   - 🔄 **Alternative**: Select **"Anthropic Console account · API usage billing"** if not subscribed to Pro or Max subscription
-      - > 🔔 **NOTE**: Ensure your Anthropic account has at least $5 credits.
+   - 🔄 **Alternative**: Select **"Anthropic Console account · API usage billing"** if not subscribed to a Claude subscription
+      - > 🔔 **NOTE**: Ensure your Anthropic account has at least $5 API credits.
       - When prompted with: "Detected a custom API key in your environment", "Do you want to use this API key?"
       - Choose between `Yes` or `No`.
 - Read and continue with the proceeding initialization prompts
