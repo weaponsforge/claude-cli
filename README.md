@@ -6,22 +6,31 @@ This repository contains Docker files and recommended configurations for a quick
 > This Docker setup is similar to [weaponsforge/gemini-cli](https://github.com/weaponsforge/gemini-cli), but for the **Claude Code CLI**.
 
 > [!IMPORTANT]
-> To run, the Claude Code CLI needs an Anthropic account with **at least $5 credits** for **Claude API**.<br>
-> Use the browser-based [Claude AI](https://claude.ai/) if you do not wish to add credits or upgrade billing from a Free plan.
+> To run, the Claude Code CLI needs an Anthropic account with any of the following:
+> - **Claude subscription** (Pro, Max, Team, or Enterprise) _recommended_ for CLI login using the **"Claude account with subscription · Pro, Max, Team, or Enterprise"** option
+> - **At least $5 credits** for **Claude API** and an `ANTHROPIC_API_KEY`<br> for CLI login using the **"Anthropic Console account · API usage billing"** option
 
 <br>
 
-### 📋 Requirements
+## 📋 Requirements
 
-1. Anthropic account
-   - With **at least $5 credits** (only when using the `ANTHROPIC_API_KEY` with Claude Code CLI)
-   - Add funds under [Anthropic Console](https://console.anthropic.com/settings/keys) ⟶ **Credits** ⟶ **Add funds**
-2. (Optional) Anthropic API Key (`ANTHROPIC_API_KEY`)
-   - This key links to the **Anthropic account**.
+#### 1. Anthropic Account
+
+Choose between the two (options):
+
+1. **Anthropic account with Claude subscription** (Pro, Max, Team, or Enterprise)
+   > No need to have $5 API credits when using the **"Claude account with subscription"** option on CLI login
+
+2. **Anthropic account with at least $5 API credits**
+   > Add funds under [Anthropic Console](https://console.anthropic.com/settings/keys) ⟶ **Credits** ⟶ **Add funds**
+
+   - Only required when using the `ANTHROPIC_API_KEY` key and the **"2. Anthropic Console account · API usage billing"** option with Claude Code CLI login
+
+   - This requires an Anthropic API Key (`ANTHROPIC_API_KEY`) in the `.env.local` file.
    - Ensure that it is linked with a **Workspace** under your account.
-   - It is an optional method for using the **Claude Code CLI** instead of using the login-generated key.
    - Generate an Anthropic key at the [Anthropic Console](https://console.anthropic.com/settings/keys)
-2. Docker
+
+#### 2. Docker
    - Windows OS (Docker Desktop): Docker version 27.4.0, build bde2b89
    - Linux/Mac OS: _(applicable Docker versions)_
 
@@ -53,7 +62,8 @@ git clone https://github.com/weaponsforge/claude-cli.git
      - .env.local
    ```
 
-> 💡 **INFO:** Use this option when you don't want to authenticate via browser login in the CLI.
+> 💡 **INFO:** Use this option if you don't have a Claude subscription,<br>
+> but have **at least $5 credits** for Claude API.
 
 #### 3. (Optional) Organize code repositories under `"/projects"`
 
