@@ -28,6 +28,11 @@ WORKDIR /opt/app
 ENV NODE_PATH $NVM_DIR/versions/node/v$NODE_VERSION/bin
 ENV PATH $NVM_DIR/versions/node/v$NODE_VERSION/bin:$PATH
 
+# Install Playwright
+ENV PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1
+RUN npm install -g playwright \
+  && playwright install --with-deps chromium
+
 # Install Claude Code using the official Linux installer
 RUN curl -fsSL https://claude.ai/install.sh | bash \
   && ln -s /root/.local/bin/claude /usr/local/bin/claude \
