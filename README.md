@@ -91,14 +91,43 @@ Put code repositories or directories for Claude Code CLI inspection under the `"
       ```
 
 #### 4. Local build: build the Docker image
-   - Run this command only during the **initial installation** or if there are **changes to the `Dockerfile`**.<br>
-   - `docker compose build`
+
+Run these commands only during the **initial installation** or if there are **changes to the `Dockerfile`**.
+
+You can choose to build from two (2) types of images:
+
+- **A. Lite image**: a "lite" image that installs only Node.js, Python3, and the Claude CLI in a `node:24.11.0-bookworm` base image
+- **B. Semi-full image**: pre-installs Playwright and Chromium into a `ode:24.11.0-bookworm` image, which might be necessary if Claude needs to work with certain web automation tasks, screenshots or testing scenarios.
+
+**A. Lite image**
+
+Build with:
+
+```sh
+docker compose build
+```
+
+**B. Semi-full image**
+
+- Open `docker-compose.yml`. Change line `#10` to:
+
+   ```yml
+   build:
+     context: .
+     dockerfile: Dockerfile   # ⟶ change to Dockerfile.semi
+   ```
+
+- Run:
+
+   ```sh
+   docker compose build
+   ```
 
 #### 5. (Optional) **Pull the pre-built Docker image**
 
-This repository deploys the "latest" Docker image to Docker Hub on the creation of new Release/Tags. It is available at: https://hub.docker.com/r/weaponsforge/claude-cli
+This repository deploys the "latest" **"Lite"** Docker image to Docker Hub on the creation of new Release/Tags. It is available at: https://hub.docker.com/r/weaponsforge/claude-cli
 
-- Use this step to skip building the image locally at **step # 4**.
+- Use this step to skip building the **Lite image** locally at **step # 4**.
 - Pull the pre-built development Docker image:
   `docker pull weaponsforge/claude-cli`
 
@@ -106,8 +135,20 @@ This repository deploys the "latest" Docker image to Docker Hub on the creation 
 
 #### 1. Run the container
 
+**Option A**:
+
 ```sh
 docker compose up -d
+```
+
+**Option B**:
+
+If you want to persist the `.claude` volume in the container across runs:
+
+> _(Ensure `docker-compose.persist.yml` is using the correct Dockerfile in line `#10`)_
+
+```sh
+docker compose -f docker-compose.persist.yml up -d
 ```
 
 #### 2. Verify the container is running
