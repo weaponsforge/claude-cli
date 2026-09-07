@@ -16,5 +16,9 @@ services:
       - ./projects/hello:/opt/app  # Replace "hello" with your project folder name
       - /opt/app/node_modules      # Anonymous volume for Node.js dependencies
       - /opt/app/.next             # Anonymous volume for Next.js build/cache output
+      - claude:/root/.claude/      # Persists the .claude folder for Claude CLI configuration and data
     stdin_open: true
     tty: true
+
+volumes:
+  claude:
