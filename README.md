@@ -97,7 +97,7 @@ Run these commands only during the **initial installation** or if there are **ch
 You can choose to build from two (2) types of images:
 
 - **A. Lite image**: a "lite" image that installs only Node.js, Python3, and the Claude CLI in a `node:24.11.0-bookworm` base image
-- **B. Semi-full image**: pre-installs Playwright and Chromium into a `ode:24.11.0-bookworm` image, which might be necessary if Claude needs to work with certain web automation tasks, screenshots or testing scenarios.
+- **B. Semi-full image**: pre-installs Playwright and Chromium into a `node:24.11.0-bookworm` image, which might be necessary if Claude needs to work with certain web automation tasks, screenshots or testing scenarios.
 
 **A. Lite image**
 
@@ -117,7 +117,7 @@ docker compose build
      dockerfile: Dockerfile   # ⟶ change to Dockerfile.semi
    ```
 
-- Run:
+- Build with:
 
    ```sh
    docker compose build
@@ -125,9 +125,9 @@ docker compose build
 
 #### 5. (Optional) **Pull the pre-built Docker image**
 
-This repository deploys the "latest" **"Lite"** Docker image to Docker Hub on the creation of new Release/Tags. It is available at: https://hub.docker.com/r/weaponsforge/claude-cli
+This repository deploys the "latest" **"lite"** Docker image to Docker Hub on the creation of new Release/Tags. It is available at: https://hub.docker.com/r/weaponsforge/claude-cli
 
-- Use this step to skip building the **Lite image** locally at **step # 4**.
+- Use this step to skip building the **lite image** locally at **step # 4**.
 - Pull the pre-built development Docker image:
   `docker pull weaponsforge/claude-cli`
 
