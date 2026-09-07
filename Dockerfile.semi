@@ -1,5 +1,6 @@
-# Lite version of the Dockerfile for Claude CLI
-# It does not install Playwright and Chromium
+# Semi-full version of the Dockerfile for Claude CLI
+# It installs Playwright and Chromium which might be required when working with
+# certain web automation tasks, screenshots or testing scenarios.
 
 FROM node:24.11.0-bookworm AS base
 
@@ -11,6 +12,11 @@ RUN apt-get update \
 
 # Create app directory and set ownership
 WORKDIR /opt/app
+
+# Install Playwright
+ENV PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1
+RUN npm install -g playwright \
+  && playwright install --with-deps chromium
 
 # Install Claude Code using the official Linux installer
 RUN curl -fsSL https://claude.ai/install.sh | bash
