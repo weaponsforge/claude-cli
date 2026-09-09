@@ -105,7 +105,7 @@ You can choose to build from two (2) types of images:
 
 **A. Lite image**
 
-- Recommended only when working with scripts, CLIs, backend (no frontend)
+- 👍🏻 Recommended only when working with scripts, CLIs, backend (no frontend)
 - Build with:
 
    ```sh
