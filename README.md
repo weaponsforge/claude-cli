@@ -71,7 +71,7 @@ Put the code repository or directory for Claude Code CLI inspection under the `"
 
 - See  the [projects/README.md](projects/README.md) file for more details on organizing your project repositories.
 - **INFO:** this step is optional since the Claude Code CLI does not require code repositories to answer general prompts.
-- To set Claude Code to inspect and reference a certain project directory upon start up:
+- Set Claude Code to inspect and reference a certain project directory upon start up:
    - Open `docker-compose.yml`
    - Replace `"hello"` in `line #9` with your project directory name under `"/projects"`
 
