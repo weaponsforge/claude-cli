@@ -105,14 +105,16 @@ You can choose to build from two (2) types of images:
 
 **A. Lite image**
 
-Build with:
+- Recommended only when working with scripts, CLIs, backend (no frontend)
+- Build with:
 
-```sh
-docker compose build
-```
+   ```sh
+   docker compose build
+   ```
 
 **B. Semi-full image**
 
+- ✅ Recommended when doing frontend and testing
 - Open `docker-compose.yml`. Change line `#10` to:
 
    ```yml
