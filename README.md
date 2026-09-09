@@ -67,13 +67,17 @@ git clone https://github.com/weaponsforge/claude-cli.git
 
 #### 3. (Optional) Organize code repositories under `"/projects"`
 
-Put code repositories or directories for Claude Code CLI inspection under the `"/projects"` directory.
+Put the code repository or directory for Claude Code CLI inspection under the `"/projects"` directory.
 
 - See  the [projects/README.md](projects/README.md) file for more details on organizing your project repositories.
 - **INFO:** this step is optional since the Claude Code CLI does not require code repositories to answer general prompts.
 - To set Claude Code to inspect and reference a certain project directory upon start up:
    - Open `docker-compose.yml`
    - Replace `"hello"` in `line #9` with your project directory name under `"/projects"`
+
+      > ‼️ **IMPORTANT**:<br>
+      > The project directory that replaces `"hello"` must be the **root** of your **Node.js application** (typically the directory containing `package.json`), not a parent directory containing the app.
+
    - eg., change from
 
       ```yml

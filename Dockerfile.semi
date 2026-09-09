@@ -8,21 +8,37 @@ FROM node:24.11.0-bookworm AS base
 RUN apt-get update \
   && apt-get install -y --no-install-recommends \
     python3 \
+    python3-pip \
   && rm -rf /var/lib/apt/lists/*
 
-# Create app directory and set ownership
+# Create app directory and hand ownership to the non-root user
 WORKDIR /opt/app
 
-# Install Playwright with Chromium
+# Node.js dependencies, Next.js artifacts, and build temporary directories
+RUN mkdir -p \
+  /opt/app/node_modules \
+  /opt/app/.next \
+  /opt/app/node_modules/.vite \
+  /opt/app/node_modules/.tmp \
+  && chown -R node:node /opt/app
+
+# Install Playwright with Chromium into a shared path (not /root/.cache)
+# so the non-root user can read/execute the browser binaries later.
 ENV PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1
-RUN npm install -g playwright \
+ENV PLAYWRIGHT_BROWSERS_PATH=/opt/playwright-browsers
+RUN mkdir -p "${PLAYWRIGHT_BROWSERS_PATH}" \
+  && npm install -g playwright \
   && playwright install --with-deps chromium \
-  && ln -s "$(find /root/.cache/ms-playwright/chromium-* -type f -name chrome | head -n 1)" /usr/local/bin/chromium
+  && ln -s "$(find "${PLAYWRIGHT_BROWSERS_PATH}"/chromium-* -type f -name chrome | head -n 1)" /usr/local/bin/chromium \
+  && chown -R node:node "${PLAYWRIGHT_BROWSERS_PATH}"
 ENV CHROME_PATH="/usr/local/bin/chromium"
+
+# Switch to the non-root user
+USER node
+ENV PATH="/home/node/.local/bin:${PATH}"
 
 # Install Claude Code using the official Linux installer
 RUN curl -fsSL https://claude.ai/install.sh | bash
-ENV PATH="/root/.local/bin:$PATH"
 RUN claude --version
 
 # Use a more appropriate entrypoint

@@ -10,6 +10,7 @@ RUN DEBIAN_FRONTEND=noninteractive \
   apt-get update \
   && apt-get install -y ffmpeg \
   && apt-get install -y python3 \
+  && apt-get install -y python3-pip \
   && apt-get install -y git \
   && apt-get install -y curl \
   && rm -rf /var/lib/apt/lists/* \
@@ -21,24 +22,41 @@ RUN DEBIAN_FRONTEND=noninteractive \
   && nvm alias default $NODE_VERSION \
   && nvm use default
 
+# Create a non-root user and give it ownership of the app and nvm directories
+RUN useradd --create-home --shell /bin/bash node \
+  && chown -R node:node /opt/app "$NVM_DIR"
+
 # Create app directory and set ownership
 WORKDIR /opt/app
+RUN mkdir -p \
+  /opt/app/node_modules \
+  /opt/app/.next \
+  /opt/app/node_modules/.vite \
+  /opt/app/node_modules/.tmp \
+  && chown -R node:node /opt/app
 
 # Persist NodeJS
 ENV NODE_PATH $NVM_DIR/versions/node/v$NODE_VERSION/bin
 ENV PATH $NVM_DIR/versions/node/v$NODE_VERSION/bin:$PATH
 
-# Install Playwright with Chromium
+# Install Playwright with Chromium into a shared path (not /root/.cache)
+# so the non-root user can read/execute the browser binaries later.
 ENV PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1
-RUN npm install -g playwright \
+ENV PLAYWRIGHT_BROWSERS_PATH=/opt/playwright-browsers
+RUN mkdir -p "${PLAYWRIGHT_BROWSERS_PATH}" \
+  && npm install -g playwright \
   && playwright install --with-deps chromium \
-  && ln -s "$(find /root/.cache/ms-playwright/chromium-* -type f -name chrome | head -n 1)" /usr/local/bin/chromium
+  && ln -s "$(find "${PLAYWRIGHT_BROWSERS_PATH}"/chromium-* -type f -name chrome | head -n 1)" /usr/local/bin/chromium \
+  && chown -R node:node "${PLAYWRIGHT_BROWSERS_PATH}"
 ENV CHROME_PATH="/usr/local/bin/chromium"
 
+# Switch to the non-root user
+USER node
+ENV PATH="/home/node/.local/bin:${PATH}"
+
 # Install Claude Code using the official Linux installer
-RUN curl -fsSL https://claude.ai/install.sh | bash \
-  && ln -s /root/.local/bin/claude /usr/local/bin/claude \
-  && claude --version
+RUN curl -fsSL https://claude.ai/install.sh | bash
+RUN claude --version
 
 # Use a more appropriate entrypoint
-CMD ["sh"]
+CMD ["bash"]

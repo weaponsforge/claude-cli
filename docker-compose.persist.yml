@@ -7,16 +7,18 @@ services:
     #  - .env.local
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile # ⟶ change to Dockerfile.semi to pre-install global Chromium and Playwright dependencies
     security_opt:
       - no-new-privileges:true
     cap_drop:
       - ALL
     volumes:
-      - ./projects/hello:/opt/app  # Replace "hello" with your project folder name
-      - /opt/app/node_modules      # Anonymous volume for Node.js dependencies
-      - /opt/app/.next             # Anonymous volume for Next.js build/cache output
-      - claude:/root/.claude/      # Persists the .claude folder for Claude CLI configuration and data
+      - ./projects/hello:/opt/app   # Replace "hello" with your "root" project folder name
+      - /opt/app/node_modules       # Anonymous volume for Node.js dependencies
+      - /opt/app/.next              # Anonymous volume for Next.js build/cache output
+      - /opt/app/node_modules/.vite # Anonymous volume for Vite build artifacts
+      - /opt/app/node_modules/.tmp  # Anonymous volume for temporary files during build processes
+      - claude:/root/.claude/       # Persists the .claude folder for Claude CLI configuration and data
     stdin_open: true
     tty: true
 
