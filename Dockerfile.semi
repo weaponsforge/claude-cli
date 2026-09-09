@@ -13,10 +13,12 @@ RUN apt-get update \
 # Create app directory and set ownership
 WORKDIR /opt/app
 
-# Install Playwright
+# Install Playwright with Chromium
 ENV PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1
 RUN npm install -g playwright \
-  && playwright install --with-deps chromium
+  && playwright install --with-deps chromium \
+  && ln -s "$(find /root/.cache/ms-playwright/chromium-* -type f -name chrome | head -n 1)" /usr/local/bin/chromium
+ENV CHROME_PATH="/usr/local/bin/chromium"
 
 # Install Claude Code using the official Linux installer
 RUN curl -fsSL https://claude.ai/install.sh | bash

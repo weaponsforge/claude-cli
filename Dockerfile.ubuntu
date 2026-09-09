@@ -28,10 +28,12 @@ WORKDIR /opt/app
 ENV NODE_PATH $NVM_DIR/versions/node/v$NODE_VERSION/bin
 ENV PATH $NVM_DIR/versions/node/v$NODE_VERSION/bin:$PATH
 
-# Install Playwright
+# Install Playwright with Chromium
 ENV PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1
 RUN npm install -g playwright \
-  && playwright install --with-deps chromium
+  && playwright install --with-deps chromium \
+  && ln -s "$(find /root/.cache/ms-playwright/chromium-* -type f -name chrome | head -n 1)" /usr/local/bin/chromium
+ENV CHROME_PATH="/usr/local/bin/chromium"
 
 # Install Claude Code using the official Linux installer
 RUN curl -fsSL https://claude.ai/install.sh | bash \
